@@ -1,29 +1,42 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REVIQO - Gestión Inteligente de Clientes, Equipos y Mantenimientos</title>
-    <meta name="description" content="Aplicación móvil en Android (Kotlin & Jetpack Compose) para la gestión integral de clientes, equipos y mantenimientos periódicos con alertas.">
+    <title>REVIQO — La historia detrás de una app creada para simplificar el mantenimiento</title>
+    <meta name="description" content="Por qué creé REVIQO, una aplicación Android para la gestión de clientes, equipos y mantenimientos periódicos.">
     
+    <!-- Favicon local -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Google Fonts: Minimalist & Clean -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-   
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #10b981;
-            --primary-dark: #059669;
-            --accent: #3b82f6;
-            --bg-dark: #0f172a;
+            --bg-main: #0f172a;
             --bg-card: #1e293b;
-            --bg-card-hover: #273548;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --primary: #10b981;
+            --primary-hover: #059669;
             --border: #334155;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #059669;
+            --primary-hover: #047857;
+            --border: #e2e8f0;
         }
 
         * {
@@ -34,545 +47,324 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
+            background-color: var(--bg-main);
             color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
+            line-height: 1.7;
+            transition: var(--transition);
         }
 
-        
         .container {
-            max-width: 1150px;
+            max-width: 780px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
 
-        
+        /* Navbar estilo minimalista */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
+            background-color: var(--bg-main);
             border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: var(--transition);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
+            height: 70px;
         }
 
-        .logo {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.5rem;
-            font-weight: 800;
+            gap: 10px;
+            text-decoration: none;
             color: var(--text-main);
-            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
-        .logo i {
-            color: var(--primary);
-            background: rgba(16, 185, 129, 0.1);
-            padding: 10px;
-            border-radius: 12px;
+        .brand img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            border-radius: 8px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .btn-github {
+        .nav-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 1rem;
+        }
+
+        .theme-toggle, .repo-link {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 50px;
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .repo-link {
+            width: auto;
+            padding: 0 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            gap: 6px;
+        }
+
+        .theme-toggle:hover, .repo-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Contenido Principal tipo Blog */
+        main {
+            padding: 140px 0 80px;
+        }
+
+        article header.article-header {
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Cuerpo del artículo */
+        .article-body h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            color: var(--text-main);
+        }
+
+        .article-body p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .article-body strong {
             color: var(--text-main);
             font-weight: 600;
-            text-decoration: none;
+        }
+
+        /* Cita destacada */
+        blockquote {
+            border-left: 3px solid var(--primary);
+            padding-left: 1.25rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        /* Caja de Descarga Minimalista */
+        .download-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            text-align: center;
             transition: var(--transition);
         }
 
-        .btn-github:hover {
-            background: var(--border);
-            border-color: var(--text-muted);
+        .download-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
         }
 
-        
-        .hero {
-            padding: 160px 0 100px;
-            text-align: center;
-            position: relative;
-        }
-
-        .badge-version {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--primary);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
+        .download-box p {
+            font-size: 0.95rem;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
-        .hero h1 {
-            font-size.rem;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .hero h1 span {
-            color: var(--primary);
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin: 0 auto 2.5rem;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
+        .btn-download {
             display: inline-flex;
             align-items: center;
             gap: 10px;
             background-color: var(--primary);
-            color: #fff;
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            padding: 14px 28px;
-            border-radius: 14px;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 12px;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
 
-        .btn-secondary:hover {
-            background-color: var(--bg-card-hover);
+        .btn-download:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
         }
 
-        /* Bento Grid Features */
-        .features {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .section-title p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1.5rem;
-        }
-
-        .bento-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bento-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-        }
-
-        .bento-card.col-span-7 { grid-column: span 7; }
-        .bento-card.col-span-5 { grid-column: span 5; }
-        .bento-card.col-span-4 { grid-column: span 4; }
-        .bento-card.col-span-8 { grid-column: span 8; }
-
-        @media (max-width: 900px) {
-            .bento-card.col-span-7,
-            .bento-card.col-span-5,
-            .bento-card.col-span-4,
-            .bento-card.col-span-8 {
-                grid-column: span 12;
-            }
-        }
-
-        .bento-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 14px;
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .bento-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .bento-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        /* Steps Section */
-        .steps {
-            padding: 80px 0;
-            background: rgba(30, 41, 59, 0.4);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .step-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            border-radius: 20px;
-            position: relative;
-        }
-
-        .step-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: rgba(16, 185, 129, 0.2);
-            margin-bottom: 1rem;
-        }
-
-        .step-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .step-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-       
-        .faq {
-            padding: 100px 0;
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            font-weight: 700;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .faq-question i {
-            transition: transform 0.3s ease;
-        }
-
-        .faq-answer {
-            padding: 0 1.5rem 1.5rem;
-            color: var(--text-muted);
-            display: none;
-            font-size: 1rem;
-        }
-
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
-      
+        /* Footer */
         footer {
-            padding: 60px 0;
             border-top: 1px solid var(--border);
+            padding: 40px 0;
             text-align: center;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
         }
 
         footer a {
-            color: var(--primary);
+            color: var(--text-main);
             text-decoration: none;
+            font-weight: 500;
+        }
+        footer a:hover {
+            color: var(--primary);
         }
     </style>
 </head>
 <body>
 
-   
+    <!-- Header minimalista -->
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">
-                    <i class="fa-solid fa-screwdriver-wrench"></i> REVIQO
+                <a href="#" class="brand">
+                    <img src="logo.png" alt="REVIQO Logo">
+                    <span>REVIQO</span>
                 </a>
-                <ul class="nav-links">
-                    <li><a href="#features">Características</a></li>
-                    <li><a href="#install">Instalación</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="https://github.com/TU_USUARIO/REVIQO" target="_blank" class="btn-github"><i class="fa-brands fa-github"></i> Repositorio</a></li>
-                </ul>
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="theme-btn" aria-label="Cambiar tema">
+                        <i class="fa-solid fa-moon" id="theme-icon"></i>
+                    </button>
+                    <a href="https://github.com/lecodev-26/reviqo" target="_blank" class="repo-link">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                </div>
             </nav>
         </div>
     </header>
 
-   
-    <section class="hero">
+    <!-- Contenido en formato Blog / Historia -->
+    <main>
         <div class="container">
-            <div class="badge-version" id="version-badge">
-                <i class="fa-solid fa-circle-check"></i> Cargando última versión...
-            </div>
-            <h1>Gestiona tus mantenimientos <span>sin complicaciones</span></h1>
-            <p>REVIQO es la app móvil definitiva para Android desarrollada en Kotlin y Jetpack Compose. Organiza clientes, equipos y programa alertas inteligentes en segundo plano.</p>
-            <div class="hero-cta">
-                <a href="#" id="download-btn" class="btn-primary" target="_blank">
-                    <i class="fa-solid fa-download"></i> Descargar APK Oficial
-                </a>
-                <a href="https://github.com/TU_USUARIO/REVIQO" class="btn-secondary" target="_blank">
-                    <i class="fa-solid fa-code">Ver Código Fuente</i>
-                </a>
-            </div>
+            <article>
+                <header class="article-header">
+                    <span class="meta-tag">Diario de desarrollo • Android</span>
+                    <h1>Por qué creé REVIQO para ordenar el caos del trabajo diario</h1>
+                    <p class="subtitle">Una historia sobre la necesidad de tener una herramienta limpia, offline y sin fricciones para gestionar mantenimientos y clientes.</p>
+                </header>
+
+                <div class="article-body">
+                    <h2>El problema real</h2>
+                    <p>Llevar el control de múltiples clientes, las fichas técnicas de sus equipos y las fechas exactas de las revisiones periódicas suele convertirse en un dolor de cabeza. Las aplicaciones corporativas complejas suelen venir sobrecargadas de funciones que nunca usas, y las hojas de cálculo tradicionales se quedan cortas en cuanto necesitas inmediatez en el campo.</p>
+                    
+                    <p>Esa fricción diaria fue la chispa que dio origen a <strong>REVIQO</strong>. Necesitaba algo directo al grano: abrir la app, consultar el equipo de un cliente en segundos, programar un aviso y seguir trabajando.</p>
+
+                    <blockquote>"Menos pantallas inútiles, más control real en la palma de la mano."</blockquote>
+
+                    <h2>Pensada para quién pisa el terreno</h2>
+                    <p>REVIQO está construida desde cero pensando en técnicos y profesionales independientes. No requiere configuraciones eternas ni conexión constante a internet. Todo se aloja de forma local y segura en tu propio dispositivo mediante <strong>Room Database</strong>.</p>
+                    
+                    <p>Además, integra detalles prácticos del día a día, como accesos directos por <strong>WhatsApp</strong> para notificar avisos a los clientes de forma instantánea, y un sistema de alertas en segundo plano con <strong>WorkManager</strong> para que ninguna revisión importante caiga en el olvido.</p>
+
+                    <h2>Desarrollo nativo y simplicidad</h2>
+                    <p>Para conseguir una fluidez absoluta, la app está desarrollada enteramente en <strong>Kotlin</strong> y <strong>Jetpack Compose</strong>. Sin artificios visuales molestos, apostando por una interfaz limpia y minimalista. Si necesitas mover tus datos, cuentas con herramientas de exportación e importación en formato CSV y copias de seguridad locales.</p>
+
+                    <!-- Caja de Descarga Dinámica -->
+                    <div class="download-box">
+                        <h3>¿Quieres probar REVIQO?</h3>
+                        <p id="version-text">Obtén la última versión compilada lista para instalar en tu dispositivo Android.</p>
+                        <a href="https://github.com/lecodev-26/reviqo/releases" id="download-btn" class="btn-download" target="_blank">
+                            <i class="fa-solid fa-download"></i> Descargar APK Oficial
+                        </a>
+                    </div>
+
+                    <h2>Filosofía abierta</h2>
+                    <p>Este proyecto nace desde la pasión por el desarrollo móvil y la utilidad práctica. Todo el contenido y las entregas del proyecto se gestionan de manera abierta a través de su <a href="https://github.com/lecodev-26/reviqo" target="_blank">repositorio en GitHub</a>.</p>
+                </div>
+            </article>
         </div>
-    </section>
+    </main>
 
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Diseñado para el trabajo de campo</h2>
-                <p>Potente por dentro, minimalista y rápido por fuera.</p>
-            </div>
-
-            <div class="bento-grid">
-               
-                <div class="bento-card col-span-7">
-                    <div class="bento-icon"><i class="fa-solid fa-users"></i></div>
-                    <h3>Directorio de Clientes Integrado</h3>
-                    <p>Gestiona la información de tus clientes con accesos directos integrados, incluyendo comunicación rápida vía WhatsApp para notificar avisos o citas de mantenimiento.</p>
-                </div>
-                
-                <div class="bento-card col-span-5">
-                    <div class="bento-icon"><i class="fa-solid fa-laptop-medical"></i></div>
-                    <h3>Control Exhaustivo de Equipos</h3>
-                    <p>Vincula múltiples equipos a tus clientes para realizar un seguimiento técnico detallado y organizado de cada dispositivo o instalación.</p>
-                </div>
-              
-                <div class="bento-card col-span-5">
-                    <div class="bento-icon"><i class="fa-solid fa-bell"></i></div>
-                    <h3>Alertas en Segundo Plano</h3>
-                    <p>Gracias a WorkManager, la app supervisa y te avisa de los mantenimientos pendientes de forma autónoma para que no se te pase ninguna fecha clave.</p>
-                </div>
-              
-                <div class="bento-card col-span-7">
-                    <div class="bento-icon"><i class="fa-solid fa-database"></i></div>
-                    <h3>Datos Seguros, CSV y Backups</h3>
-                    <p>Todo se almacena localmente en tu dispositivo mediante Room Database. Además, puedes exportar e importar tus datos mediante archivos CSV y realizar copias de seguridad completas.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    
-    <section class="steps" id="install">
-        <div class="container">
-            <div class="section-title">
-                <h2>¿Cómo instalar REVIQO en tu móvil?</h2>
-                <p>Instalación rápida en menos de 1 minuto.</p>
-            </div>
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-number">01</div>
-                    <h3>Descarga el APK</h3>
-                    <p>Pulsa en el botón superior de descarga para obtener la última versión oficial directamente desde los releases de GitHub.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">02</div>
-                    <h3>Permite orígenes desconocidos</h3>
-                    <p>Si tu Android te avisa por seguridad al instalar aplicaciones fuera de Google Play, pulsa en "Permitir desde esta fuente".</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">03</div>
-                    <h3>¡Listo para usar!</h3>
-                    <p>Abre la aplicación y comienza a registrar tus primeros clientes, equipos y mantenimientos programados.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-  
-    <section class="faq" id="faq">
-        <div class="container">
-            <div class="section-title">
-                <h2>Preguntas Frecuentes</h2>
-                <p>Todo lo que necesitas saber sobre el proyecto.</p>
-            </div>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿REVIQO es totalmente gratuito?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        Sí, REVIQO es un proyecto de código abierto bajo la Licencia Apache 2.0, lo que significa que es libre de usar, modificar y distribuir.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Necesito conexión a Internet para usarla?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        No. Al utilizar Room Database, toda la información de tus clientes y equipos se guarda de forma local en tu dispositivo, funcionando perfectamente offline.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Cómo se actualiza la aplicación?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        Puedes volver a esta página web o visitar el repositorio en GitHub para descargar manualmente la última versión disponible del archivo APK.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
- 
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>REVIQO • Desarrollado con 💚 en Kotlin & Jetpack Compose. Licenciado bajo <a href="https://github.com/TU_USUARIO/REVIQO/blob/main/LICENSE" target="_blank">Apache 2.0</a>.</p>
+            <p>REVIQO • Diseñado con propósito por <a href="https://github.com/lecodev-26" target="_blank">lecodev-26</a>.</p>
         </div>
     </footer>
 
-   
+    <!-- Script para Modo Oscuro/Claro y versión de GitHub -->
     <script>
-      
-        const repoOwner = "lecodev-26"; 
-        const repoName = "reviqo";     
+        // 1. Lógica del Botón de Tema (Claro / Oscuro)
+        const themeBtn = document.getElementById('theme-btn');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                htmlElement.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+        });
+
+        // 2. Conexión automática con GitHub API para el APK del último release
+        const repoOwner = "lecodev-26";
+        const repoName = "reviqo";
 
         fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/releases/latest`)
             .then(response => response.json())
             .then(data => {
                 if (data && data.tag_name) {
-                    const versionBadge = document.getElementById('version-badge');
-                    versionBadge.innerHTML = `<i class="fa-solid fa-circle-check"></i> Versión Estable: ${data.tag_name}`;
-                    
+                    const versionText = document.getElementById('version-text');
+                    versionText.textContent = `Última versión estable disponible: ${data.tag_name}`;
                     
                     const apkAsset = data.assets.find(asset => asset.name.endsWith('.apk'));
                     const downloadBtn = document.getElementById('download-btn');
                     
                     if (apkAsset) {
                         downloadBtn.href = apkAsset.browser_download_url;
-                    } else {
-                       
-                        downloadBtn.href = data.html_url;
                     }
                 }
             })
             .catch(error => {
-                console.error("Error al consultar la API de GitHub:", error);
-                document.getElementById('download-btn').href = `https://github.com/${repoOwner}/${repoName}/releases`;
-                document.getElementById('version-badge').innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Disponible en GitHub`;
+                console.log("Usando enlace general de releases por defecto.");
             });
-
-        
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                item.classList.toggle('active');
-            });
-        });
     </script>
 </body>
 </html>
